@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'apple-touch-icon.svg', 'pwa-192x192.svg', 'pwa-512x512.svg', 'mask-icon.svg'],
         manifest: {
           name: 'FinanzaPro',
           short_name: 'FinanzaPro',
