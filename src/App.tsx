@@ -164,6 +164,7 @@ export default function App() {
                   <CreditsProgressCard
                     credits={stats.creditsStatus}
                     onSelect={(credit) => { setSelectedObligation(credit); setModalType('pay_obligation'); setIsModalOpen(true); }}
+                    onDelete={(id) => dbService.deleteExpense(id)}
                   />
 
                   {/* Recent Transactions Preview */}

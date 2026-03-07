@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, CreditCard } from 'lucide-react';
+import { CheckCircle2, CreditCard, Trash2 } from 'lucide-react';
 import { cn } from '../utils/classNames';
 import { formatCOP } from '../utils/formatters';
 import type { Expense } from '../db';
@@ -14,9 +14,10 @@ type CreditItem = Expense & {
 type Props = {
   credits: CreditItem[];
   onSelect: (credit: CreditItem) => void;
+  onDelete: (id: number) => void;
 };
 
-export default function CreditsProgressCard({ credits, onSelect }: Props) {
+export default function CreditsProgressCard({ credits, onSelect, onDelete }: Props) {
   if (!credits || credits.length === 0) return null;
 
   return (
@@ -57,7 +58,16 @@ export default function CreditsProgressCard({ credits, onSelect }: Props) {
 
             <div className="flex justify-between items-center text-xs">
               <span className="text-slate-500 dark:text-slate-300">{formatCOP(credit.paidAmount)} / {formatCOP(credit.totalDebt || 0)}</span>
-              <span className="font-bold text-slate-700 dark:text-slate-200">{credit.progressPercent.toFixed(0)}%</span>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-slate-700 dark:text-slate-200">{credit.progressPercent.toFixed(0)}%</span>
+                <button
+                  onClick={(e) => { e.stopPropagation(); credit.id && onDelete(credit.id); }}
+                  className="p-1 text-slate-400 hover:text-rose-500 transition-colors"
+                  aria-label="Eliminar crédito"
+                >
+                  <Trash2 size={14} />
+                </button>
+              </div>
             </div>
             {!credit.isCompleted ? (
               <p className="text-[11px] text-slate-500 dark:text-slate-300 mt-1">Pendiente: {formatCOP(credit.remainingAmount)}</p>
